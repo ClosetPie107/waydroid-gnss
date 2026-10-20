@@ -1,0 +1,6 @@
+# VK-172 (u-blox 7, USB CDC-ACM) -> stable /dev/ttyGPSD for Waydroid GNSS passthrough.
+# aid_gps (gid 1021, see waydroid-gnss.sysusers) is Android's AID_GPS: the Waydroid
+# container has no uid/gid mapping, so the in-container GNSS HAL (group gps) needs it.
+# uaccess grants the logged-in desktop user an ACL for host-side testing.
+# Install: sudo install -m 0644 70-vk172.rules /etc/udev/rules.d/ && sudo udevadm control --reload && sudo udevadm trigger
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1546", ATTRS{idProduct}=="01a7", SYMLINK+="ttyGPSD", GROUP="aid_gps", MODE="0660", TAG+="uaccess"

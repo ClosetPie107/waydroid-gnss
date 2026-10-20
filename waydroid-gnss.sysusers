@@ -1,0 +1,5 @@
+# Host group matching Android's AID_GPS (1021) so udev can hand the receiver
+# to the in-container GNSS HAL (Waydroid's container has no gid mapping).
+# Install: sudo install -D -m 0644 waydroid-gnss.sysusers /etc/sysusers.d/waydroid-gnss.conf && sudo systemd-sysusers
+# Then: sudo touch /etc/udev/rules.d/70-vk172.rules && sudo udevadm control --reload (udevd keeps rules parsed before the group existed)
+g aid_gps 1021
